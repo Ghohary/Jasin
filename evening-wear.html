@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover GHOHARY's exclusive collection of luxury evening dresses. Handcrafted couture gowns for unforgettable moments.">
+    <title>Evening Wear - Luxury Gowns | GHOHARY</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for evening wear page */
+        .page-hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)),
+                        url('https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 24px;
+        }
+
+        .page-hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 16px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .page-hero-content p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .filters-bar {
+            background: var(--color-off-white);
+            padding: 24px;
+            border-bottom: 1px solid var(--color-light-gray);
+            position: sticky;
+            top: 70px;
+            z-index: 100;
+        }
+
+        .filters-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--color-dark-gray);
+            min-width: 80px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: var(--color-white);
+            border: 1px solid var(--color-light-gray);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .filter-btn.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--color-secondary);
+            color: var(--color-secondary);
+        }
+
+        .sort-select {
+            padding: 10px 16px;
+            background: var(--color-white);
+            border: 1px solid var(--color-light-gray);
+            font-size: 0.85rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+        }
+
+        .products-header {
+            max-width: 1400px;
+            margin: 32px auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .results-count {
+            font-size: 0.9rem;
+            color: var(--color-medium-gray);
+        }
+
+        @media (min-width: 768px) {
+            .filters-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .filter-group {
+                flex-wrap: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><a href="index.html">GHOHARY</a></div>
+
+            <ul class="nav-menu">
+                <li><a href="new-collection.html">NEW COLLECTION</a></li>
+                <li><a href="evening-wear.html">EVENING WEAR</a></li>
+                <li><a href="bridal.html">BRIDAL</a></li>
+                <li><a href="custom.html">CUSTOM</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <div class="nav-icon">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </div>
+                <div class="nav-icon">
+                    <a href="account.html">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </div>
+                <div class="nav-icon">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </div>
+                <div class="nav-icon">
+                    <a href="cart.html">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                </div>
+                <div class="mobile-menu-btn nav-icon" onclick="toggleMobileMenu()">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="new-collection.html">NEW COLLECTION</a>
+            <a href="evening-wear.html">EVENING WEAR</a>
+            <a href="bridal.html">BRIDAL</a>
+            <a href="custom.html">CUSTOM</a>
+            <a href="about.html">ABOUT</a>
+            <a href="contact.html">CONTACT</a>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1>Evening Wear</h1>
+            <p>Exquisite gowns for unforgettable moments</p>
+        </div>
+    </section>
+
+    <!-- Filters Bar -->
+    <div class="filters-bar">
+        <div class="filters-container">
+            <div class="filter-group">
+                <span class="filter-label">STYLE:</span>
+                <button class="filter-btn active" data-filter="all" onclick="filterProducts('all')">All</button>
+                <button class="filter-btn" data-filter="gown" onclick="filterProducts('gown')">Gowns</button>
+                <button class="filter-btn" data-filter="cocktail" onclick="filterProducts('cocktail')">Cocktail</button>
+                <button class="filter-btn" data-filter="formal" onclick="filterProducts('formal')">Formal</button>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">SORT:</span>
+                <select class="sort-select" id="sortSelect" onchange="sortProducts(this.value)">
+                    <option value="featured">Featured</option>
+                    <option value="newest">Newest</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="products-header">
+            <p class="results-count">Showing 12 pieces</p>
+        </div>
+
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card" data-category="gown" data-price="1800" data-date="20250115">
+                <div class="product-image">
+                    <a href="product.html?id=1">
+                        <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600&q=80" alt="Midnight Satin Gown">
+                    </a>
+                    <div class="product-overlay"></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Midnight Satin Gown', 1800)">ADD TO CART</button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(1, 'Midnight Satin Gown')">e</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">EVENING GOWN</p>
+                    <h3 class="product-name"><a href="product.html?id=1">Midnight Satin Gown</a></h3>
+                    <p class="product-price">AED 1,800.00</p>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card" data-category="gown" data-price="2100" data-date="20250114">
+                <div class="product-image">
+                    <a href="product.html?id=2">
+                        <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80" alt="Golden Hour Elegance">
+                    </a>
+                    <div class="product-overlay"></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Golden Hour Elegance', 2100)">ADD TO CART</button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(2, 'Golden Hour Elegance')">e</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">EVENING GOWN</p>
+                    <h3 class="product-name"><a href="product.html?id=2">Golden Hour Elegance</a></h3>
+                    <p class="product-price">AED 2,100.00</p>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card" data-category="cocktail" data-price="950" data-date="20250113">
+                <div class="product-image">
+                    <a href="product.html?id=3">
+                        <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=600&q=80" alt="Emerald Dream Cocktail">
+                    </a>
+                    <div class="product-overlay"></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Emerald Dream Cocktail', 950)">ADD TO CART</button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(3, 'Emerald Dream Cocktail')">e</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">COCKTAIL DRESS</p>
+                    <h3 class="product-name"><a href="product.html?id=3">Emerald Dream Cocktail</a></h3>
+                    <p class="product-price">AED 950.00</p>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card" data-category="formal" data-price="1650" data-date="20250112">
+                <div class="product-image">
+                    <a href="product.html?id=4">
+                        <img src="https://images.unsplash.com/photo-1612336307429-8a898d10e223?w=600&q=80" alt="Royal Blue Statement">
+                    </a>
+                    <div class="product-overlay"></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Royal Blue Statement', 1650)">ADD TO CART</button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(4, 'Royal Blue Statement')">e</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">FORMAL GOWN</p>
+                    <h3 class="product-name"><a href="product.html?id=4">Royal Blue Statement</a></h3>
+                    <p class="product-price">AED 1,650.00</p>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card" data-category="gown" data-price="2850" data-date="20250111">
+                <div class="product-image">
+                    <a href="product.html?id=5">
+                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&q=80" alt="Champagne Luxe">
+                    </a>
+                    <div class="product-overlay"></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Champagne Luxe', 2850)">ADD TO CART</button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(5, 'Champagne Luxe')">e</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">EVENING GOWN</p>
+                    <h3 class="product-name"><a href="product.html?id=5">Champagne Luxe</a></h3>
+                    <p class="product-price">AED 2,850.00</p>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card" data-category="cocktail" data-price="1200" data-date="20250110">
+                <div class="product-image">
+                    <a href="product.html?id=6">
+                        <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&q=80" alt="Crimson Velvet">
+                    </a>
+                    <div class="product-overlay"></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Crimson Velvet', 1200)">ADD TO CART</button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(6, 'Crimson Velvet')">e</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">COCKTAIL DRESS</p>
+                    <h3 class="product-name"><a href="product.html?id=6">Crimson Velvet</a></h3>
+                    <p class="product-price">AED 1,200.00</p>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card" data-category="formal" data-price="1950" data-date="20250109">
+                <div class="product-image">
+                    <a href="product.html?id=7">
+                        <img src="https://images.unsplash.com/photo-1519657337289-077653f724ed?w=600&q=80" alt="Ivory Cascade">
+                    </a>
+                    <div class="product-overlay"></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Ivory Cascade', 1950)">ADD TO CART</button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(7, 'Ivory Cascade')">e</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">FORMAL GOWN</p>
+                    <h3 class="product-name"><a href="product.html?id=7">Ivory Cascade</a></h3>
+                    <p class="product-price">AED 1,950.00</p>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card" data-category="gown" data-price="3200" data-date="20250108">
+                <div class="product-image">
+                    <a href="product.html?id=8">
+                        <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600&q=80" alt="Black Diamond">
+                    </a>
+                    <div class="product-overlay"></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Black Diamond', 3200)">ADD TO CART</button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(8, 'Black Diamond')">e</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">EVENING GOWN</p>
+                    <h3 class="product-name"><a href="product.html?id=8">Black Diamond</a></h3>
+                    <p class="product-price">AED 3,200.00</p>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card" data-category="gown" data-price="2450" data-date="20250107">
+                <div class="product-image">
+                    <a href="product.html?id=9">
+                        <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80" alt="Rose Gold Shimmer">
+                    </a>
+                    <div class="product-overlay"></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Rose Gold Shimmer', 2450)">ADD TO CART</button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(9, 'Rose Gold Shimmer')">e</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">EVENING GOWN</p>
+                    <h3 class="product-name"><a href="product.html?id=9">Rose Gold Shimmer</a></h3>
+                    <p class="product-price">AED 2,450.00</p>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card" data-category="cocktail" data-price="890" data-date="20250106">
+                <div class="product-image">
+                    <a href="product.html?id=10">
+                        <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=600&q=80" alt="Silver Lining">
+                    </a>
+                    <div class="product-overlay"></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Silver Lining', 890)">ADD TO CART</button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(10, 'Silver Lining')">e</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">COCKTAIL DRESS</p>
+                    <h3 class="product-name"><a href="product.html?id=10">Silver Lining</a></h3>
+                    <p class="product-price">AED 890.00</p>
+                </div>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="product-card" data-category="formal" data-price="1750" data-date="20250105">
+                <div class="product-image">
+                    <a href="product.html?id=11">
+                        <img src="https://images.unsplash.com/photo-1612336307429-8a898d10e223?w=600&q=80" alt="Navy Elegance">
+                    </a>
+                    <div class="product-overlay"></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Navy Elegance', 1750)">ADD TO CART</button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(11, 'Navy Elegance')">e</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">FORMAL GOWN</p>
+                    <h3 class="product-name"><a href="product.html?id=11">Navy Elegance</a></h3>
+                    <p class="product-price">AED 1,750.00</p>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card" data-category="gown" data-price="2950" data-date="20250104">
+                <div class="product-image">
+                    <a href="product.html?id=12">
+                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&q=80" alt="Sunset Couture">
+                    </a>
+                    <div class="product-overlay"></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Sunset Couture', 2950)">ADD TO CART</button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(12, 'Sunset Couture')">e</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">EVENING GOWN</p>
+                    <h3 class="product-name"><a href="product.html?id=12">Sunset Couture</a></h3>
+                    <p class="product-price">AED 2,950.00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Banner -->
+    <section class="custom-banner">
+        <div class="custom-banner-content">
+            <h2>NEED A CUSTOM GOWN?</h2>
+            <p>Let us create the dress of your dreams. Our expert designers will work with you to bring your vision to life with premium fabrics and impeccable craftsmanship.</p>
+            <a href="custom.html"><button class="btn-primary">BOOK CONSULTATION</button></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>GHOHARY</h3>
+                <p>Luxury fashion house specializing in handcrafted evening wear and bridal collections.</p>
+                <div class="social-icons">
+                    <a href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                    <a href="#"><svg class="icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                    <a href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>SHOP</h4>
+                <ul class="footer-links">
+                    <li><a href="new-collection.html">New Collection</a></li>
+                    <li><a href="evening-wear.html">Evening Wear</a></li>
+                    <li><a href="bridal.html">Bridal</a></li>
+                    <li><a href="custom.html">Custom</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>SUPPORT</h4>
+                <ul class="footer-links">
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#" onclick="showSizeGuide(); return false;">Size Guide</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>NEWSLETTER</h4>
+                <p>Subscribe for exclusive offers and updates</p>
+                <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                    <input type="email" placeholder="Email address" required>
+                    <button type="submit">JOIN</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 Ghohary. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

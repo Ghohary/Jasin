@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Luxury evening gown with exquisite craftsmanship and premium fabrics.">
+    <title>Midnight Satin Gown | GHOHARY</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Product Page Specific Styles */
+        .product-detail-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        .product-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+        }
+
+        .product-gallery {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .main-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .thumbnail {
+            aspect-ratio: 3/4;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition-fast);
+        }
+
+        .thumbnail.active {
+            border-color: var(--color-secondary);
+        }
+
+        .thumbnail:hover {
+            border-color: var(--color-light-gray);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .product-header {
+            border-bottom: 1px solid var(--color-light-gray);
+            padding-bottom: 24px;
+        }
+
+        .product-breadcrumb {
+            font-size: 0.85rem;
+            color: var(--color-medium-gray);
+            margin-bottom: 12px;
+        }
+
+        .product-breadcrumb a {
+            color: var(--color-medium-gray);
+        }
+
+        .product-breadcrumb a:hover {
+            color: var(--color-secondary);
+        }
+
+        .product-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 16px;
+        }
+
+        .product-price-large {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-dark-gray);
+            margin-bottom: 8px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--color-medium-gray);
+        }
+
+        .stars {
+            color: var(--color-accent);
+        }
+
+        .size-selector {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--color-light-gray);
+        }
+
+        .size-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .size-label span {
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .size-guide-link {
+            color: var(--color-secondary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .size-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 12px;
+        }
+
+        .size-option {
+            padding: 12px;
+            border: 2px solid var(--color-light-gray);
+            background: var(--color-white);
+            text-align: center;
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .size-option:hover {
+            border-color: var(--color-secondary);
+        }
+
+        .size-option.active {
+            border-color: var(--color-primary);
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .size-option.unavailable {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .quantity-selector {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--color-light-gray);
+        }
+
+        .quantity-label {
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 2px solid var(--color-light-gray);
+            width: fit-content;
+            border-radius: var(--radius-sm);
+        }
+
+        .quantity-controls button {
+            padding: 12px 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-dark-gray);
+        }
+
+        .quantity-controls button:hover {
+            color: var(--color-secondary);
+        }
+
+        .quantity-controls span {
+            min-width: 40px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 24px 0;
+        }
+
+        .btn-add-to-cart {
+            padding: 18px 32px;
+            background: var(--color-primary);
+            color: var(--color-white);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-medium);
+        }
+
+        .btn-add-to-cart:hover {
+            background: var(--color-secondary);
+        }
+
+        .btn-wishlist {
+            padding: 14px 32px;
+            background: var(--color-white);
+            color: var(--color-dark-gray);
+            border: 2px solid var(--color-light-gray);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-fast);
+        }
+
+        .btn-wishlist:hover {
+            border-color: var(--color-secondary);
+            color: var(--color-secondary);
+        }
+
+        .product-description {
+            line-height: 2;
+            color: var(--color-dark-gray);
+        }
+
+        .product-features {
+            padding: 24px 0;
+            border-top: 1px solid var(--color-light-gray);
+        }
+
+        .features-title {
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .features-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: var(--color-dark-gray);
+        }
+
+        .features-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            color: var(--color-secondary);
+            font-weight: 600;
+        }
+
+        .product-accordion {
+            border-top: 1px solid var(--color-light-gray);
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--color-light-gray);
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .accordion-header:hover {
+            color: var(--color-secondary);
+        }
+
+        .accordion-icon {
+            transition: var(--transition-fast);
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+        }
+
+        .accordion-body {
+            padding-bottom: 20px;
+            color: var(--color-dark-gray);
+            line-height: 1.8;
+        }
+
+        @media (min-width: 1024px) {
+            .product-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><a href="index.html">GHOHARY</a></div>
+
+            <ul class="nav-menu">
+                <li><a href="new-collection.html">NEW COLLECTION</a></li>
+                <li><a href="evening-wear.html">EVENING WEAR</a></li>
+                <li><a href="bridal.html">BRIDAL</a></li>
+                <li><a href="custom.html">CUSTOM</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <div class="nav-icon">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </div>
+                <div class="nav-icon">
+                    <a href="account.html">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </div>
+                <div class="nav-icon">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </div>
+                <div class="nav-icon">
+                    <a href="cart.html">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                </div>
+                <div class="mobile-menu-btn nav-icon" onclick="toggleMobileMenu()">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="new-collection.html">NEW COLLECTION</a>
+            <a href="evening-wear.html">EVENING WEAR</a>
+            <a href="bridal.html">BRIDAL</a>
+            <a href="custom.html">CUSTOM</a>
+            <a href="about.html">ABOUT</a>
+            <a href="contact.html">CONTACT</a>
+        </div>
+    </nav>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+        <div class="product-layout">
+            <!-- Product Gallery -->
+            <div class="product-gallery">
+                <div class="main-image">
+                    <img id="mainImage" src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=800&q=80" alt="Midnight Satin Gown">
+                </div>
+                <div class="thumbnail-grid">
+                    <div class="thumbnail active" onclick="changeMainImage(this, 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=200&q=80" alt="View 1">
+                    </div>
+                    <div class="thumbnail" onclick="changeMainImage(this, 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=200&q=80" alt="View 2">
+                    </div>
+                    <div class="thumbnail" onclick="changeMainImage(this, 'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=200&q=80" alt="View 3">
+                    </div>
+                    <div class="thumbnail" onclick="changeMainImage(this, 'https://images.unsplash.com/photo-1612336307429-8a898d10e223?w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1612336307429-8a898d10e223?w=200&q=80" alt="View 4">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Details -->
+            <div class="product-details">
+                <div class="product-header">
+                    <div class="product-breadcrumb">
+                        <a href="index.html">Home</a> / <a href="evening-wear.html">Evening Wear</a> / Midnight Satin Gown
+                    </div>
+                    <h1 class="product-title">Midnight Satin Gown</h1>
+                    <div class="product-price-large">AED 1,800.00</div>
+                    <div class="product-rating">
+                        <span class="stars"></span>
+                        <span>(24 reviews)</span>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    <p>Experience timeless elegance with our Midnight Satin Gown. This exquisite piece features luxurious silk satin that drapes beautifully, creating a stunning silhouette that flatters every figure. Hand-embellished with delicate crystals along the neckline, this gown is perfect for gala events, red carpet moments, and special celebrations.</p>
+                </div>
+
+                <!-- Size Selector -->
+                <div class="size-selector">
+                    <div class="size-label">
+                        <span>SELECT SIZE</span>
+                        <a class="size-guide-link" onclick="showSizeGuide()">Size Guide</a>
+                    </div>
+                    <div class="size-options">
+                        <button class="size-option unavailable">XS</button>
+                        <button class="size-option active" onclick="selectSize(this)">S</button>
+                        <button class="size-option" onclick="selectSize(this)">M</button>
+                        <button class="size-option" onclick="selectSize(this)">L</button>
+                        <button class="size-option" onclick="selectSize(this)">XL</button>
+                    </div>
+                </div>
+
+                <!-- Quantity Selector -->
+                <div class="quantity-selector">
+                    <div class="quantity-label">QUANTITY</div>
+                    <div class="quantity-controls">
+                        <button onclick="changeQuantity(-1)"></button>
+                        <span id="quantity">1</span>
+                        <button onclick="changeQuantity(1)">+</button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn-add-to-cart" onclick="addToCartFromProduct()">ADD TO CART</button>
+                    <button class="btn-wishlist" onclick="toggleWishlist(1, 'Midnight Satin Gown')">ADD TO WISHLIST</button>
+                </div>
+
+                <!-- Product Features -->
+                <div class="product-features">
+                    <div class="features-title">FEATURES</div>
+                    <ul class="features-list">
+                        <li>Premium Italian silk satin fabric</li>
+                        <li>Hand-embellished crystal detailing</li>
+                        <li>Invisible side zipper closure</li>
+                        <li>Fully lined with silk charmeuse</li>
+                        <li>Made to order in our Dubai atelier</li>
+                        <li>Complimentary alterations included</li>
+                    </ul>
+                </div>
+
+                <!-- Accordion -->
+                <div class="product-accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>FABRIC & CARE</span>
+                            <span class="accordion-icon">¼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p><strong>Fabric:</strong> 100% Silk Satin</p>
+                                <p><strong>Lining:</strong> 100% Silk Charmeuse</p>
+                                <p><strong>Care:</strong> Dry clean only. Store in garment bag away from direct sunlight. Handle embellishments with care.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>DELIVERY & RETURNS</span>
+                            <span class="accordion-icon">¼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p><strong>Delivery:</strong> Made to order pieces require 2-3 weeks for production. Express shipping available within UAE (2-3 business days). International shipping takes 5-7 business days.</p>
+                                <p><strong>Returns:</strong> We accept returns within 14 days of delivery. Items must be unworn with all tags attached. Custom/altered pieces are final sale.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>CUSTOM ALTERATIONS</span>
+                            <span class="accordion-icon">¼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p>Complimentary alterations are included with every purchase. Our expert seamstresses will ensure a perfect fit. Book your fitting appointment after your order is confirmed.</p>
+                                <p>Custom color and fabric options available upon request. Contact our concierge team for personalization inquiries.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>GHOHARY</h3>
+                <p>Luxury fashion house specializing in handcrafted evening wear and bridal collections.</p>
+                <div class="social-icons">
+                    <a href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                    <a href="#"><svg class="icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                    <a href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>SHOP</h4>
+                <ul class="footer-links">
+                    <li><a href="new-collection.html">New Collection</a></li>
+                    <li><a href="evening-wear.html">Evening Wear</a></li>
+                    <li><a href="bridal.html">Bridal</a></li>
+                    <li><a href="custom.html">Custom</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>SUPPORT</h4>
+                <ul class="footer-links">
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#" onclick="showSizeGuide(); return false;">Size Guide</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>NEWSLETTER</h4>
+                <p>Subscribe for exclusive offers and updates</p>
+                <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                    <input type="email" placeholder="Email address" required>
+                    <button type="submit">JOIN</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 Ghohary. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // Product page specific functions
+        let selectedQuantity = 1;
+
+        function changeMainImage(thumbnail, imageUrl) {
+            document.getElementById('mainImage').src = imageUrl;
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            thumbnail.classList.add('active');
+        }
+
+        function selectSize(sizeButton) {
+            if (sizeButton.classList.contains('unavailable')) return;
+            document.querySelectorAll('.size-option').forEach(s => s.classList.remove('active'));
+            sizeButton.classList.add('active');
+        }
+
+        function changeQuantity(change) {
+            selectedQuantity = Math.max(1, Math.min(10, selectedQuantity + change));
+            document.getElementById('quantity').textContent = selectedQuantity;
+        }
+
+        function addToCartFromProduct() {
+            const size = document.querySelector('.size-option.active');
+            if (!size) {
+                showNotification('Please select a size');
+                return;
+            }
+
+            for (let i = 0; i < selectedQuantity; i++) {
+                addToCart('Midnight Satin Gown', 1800);
+            }
+        }
+
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const wasActive = item.classList.contains('active');
+
+            document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
